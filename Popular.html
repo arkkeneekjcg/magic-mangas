@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Manga | Mashhur asarlar</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Orbitron', sans-serif; }
+        
+        body {
+            background: #020308;
+            color: white;
+            min-height: 100vh;
+            background-image: linear-gradient(180deg, #0b1230 0%, #020308 100%);
+        }
+
+        header {
+            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px);
+            background: rgba(5, 10, 20, 0.85); display: flex; align-items: center;
+            justify-content: space-between; padding: 10px 40px; border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+        }
+        /* Logo endi index.html ga ulanadi */
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; color: #22d3ee; text-decoration: none; }
+        .logo:hover { text-shadow: 0 0 10px #22d3ee; }
+
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+
+        /* YANGI: Asosiy sahifaga qaytish tugmasi stili */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #22d3ee;
+            text-decoration: none;
+            font-size: 12px;
+            margin-bottom: 30px;
+            padding: 8px 15px;
+            background: rgba(34, 211, 238, 0.05);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .back-btn:hover {
+            background: rgba(34, 211, 238, 0.15);
+            transform: translateX(-5px);
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
+        }
+
+        .popular-header { text-align: center; margin-bottom: 40px; }
+        .popular-header h1 { font-size: 32px; color: #22d3ee; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* TAB TIZIMI */
+        .tab-menu {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: rgba(34, 211, 238, 0.05);
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            color: #bbb;
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: 0.3s;
+        }
+
+        .tab-btn:hover, .tab-btn.active {
+            background: #22d3ee;
+            color: #000;
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.4);
+            font-weight: bold;
+        }
+
+        /* REYTING RO'YXATI */
+        .ranking-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .rank-item {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 15px 25px;
+            transition: 0.3s;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .rank-item:hover {
+            background: rgba(34, 211, 238, 0.08);
+            border-color: #22d3ee;
+            transform: scale(1.01);
+        }
+
+        .number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #444;
+            min-width: 50px;
+        }
+
+        .rank-item:nth-child(1) .number { color: #ffd700; text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+        .rank-item:nth-child(2) .number { color: #c0c0c0; }
+        .rank-item:nth-child(3) .number { color: #cd7f32; }
+
+        .rank-img {
+            width: 60px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin: 0 20px;
+            border: 1px solid rgba(34, 211, 238, 0.2);
+        }
+
+        .rank-info { flex: 1; }
+        .rank-info h3 { font-size: 16px; margin-bottom: 5px; color: #fff; }
+        .rank-info .meta { font-size: 11px; color: #888; }
+        .rank-info .meta span { color: #22d3ee; margin-right: 15px; }
+
+        .view-count {
+            text-align: right;
+            font-size: 12px;
+            color: #22d3ee;
+        }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">Magic Manga</a>
+    <div style="font-size: 12px; color: #22d3ee;">POPULAR CHARTS</div>
+</header>
+
+<div class="container">
+    
+    <a href="index.html" class="back-btn">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Asosiy sahifaga qaytish
+    </a>
+
+    <div class="popular-header">
+        <h1>MASHHUR ASARLAR</h1>
+    </div>
+
+    <div class="tab-menu">
+        <button class="tab-btn active" onclick="openTab(event, 'today')">BUGUN</button>
+        <button class="tab-btn" onclick="openTab(event, 'week')">HAFTALIK</button>
+        <button class="tab-btn" onclick="openTab(event, 'month')">OYLIK</button>
+        <button class="tab-btn" onclick="openTab(event, 'all')">DOIMIY</button>
+    </div>
+
+    <div id="today" class="tab-content active">
+        <div class="ranking-list">
+            <a href="#" class="rank-item">
+                <div class="number">01</div>
+                <img src="images/Solo leveling.jpg" class="rank-img">
+                <div class="rank-info">
+                    <h3>Solo Leveling</h3>
+                    <div class="meta"><span>Manhwa</span> ⭐ 9.9</div>
+                </div>
+                <div class="view-count">24.5k ko'rildi</div>
+            </a>
+            <a href="#" class="rank-item">
+                <div class="number">02</div>
+                <img src="images/Xojning burchagi.jpg" class="rank-img">
+                <div class="rank-info">
+                    <h3>Xojning burchagi</h3>
+                    <div class="meta"><span>Manhwa</span> ⭐ 9.8</div>
+                </div>
+                <div class="view-count">18.2k ko'rildi</div>
+            </a>
+        </div>
+    </div>
+
+    <div id="week" class="tab-content">
+        <div class="ranking-list">
+            <a href="#" class="rank-item">
+                <div class="number">01</div>
+                <img src="images/Abadiy.jpg" class="rank-img">
+                <div class="rank-info">
+                    <h3>Abadiy Izolyatsiya</h3>
+                    <div class="meta"><span>Manhwa</span> ⭐ 9.6</div>
+                </div>
+                <div class="view-count">110k ko'rildi</div>
+            </a>
+        </div>
+    </div>
+
+    <div id="month" class="tab-content">
+        <p style="text-align: center; color: #555; margin-top: 50px;">Oylik ma'lumotlar yuklanmoqda...</p>
+    </div>
+
+    <div id="all" class="tab-content">
+        <p style="text-align: center; color: #555; margin-top: 50px;">Barcha davrlardagi eng yaxshi asarlar yuklanmoqda...</p>
+    </div>
+
+</div>
+
+<script>
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName("tab-content");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+        tablinks = document.getElementsByClassName("tab-btn");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+</script>
+
+</body>
+</html>

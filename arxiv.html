@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Manga | Arxiv</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Orbitron', sans-serif; }
+        
+        body {
+            background: #020308;
+            color: white;
+            min-height: 100vh;
+            background-image: linear-gradient(135deg, #0b1230 0%, #020308 100%);
+        }
+
+        header {
+            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px);
+            background: rgba(5, 10, 20, 0.85); display: flex; align-items: center;
+            justify-content: space-between; padding: 15px 40px; border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+        }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; color: #22d3ee; text-decoration: none; }
+
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+
+        /* QAYTISH TUGMASI */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #22d3ee;
+            text-decoration: none;
+            font-size: 11px;
+            padding: 8px 15px;
+            background: rgba(34, 211, 238, 0.05);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            border-radius: 8px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+        .back-btn:hover {
+            background: rgba(34, 211, 238, 0.15);
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
+        }
+
+        .archive-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 20px;
+        }
+        .archive-header h1 { font-size: 24px; color: #22d3ee; }
+
+        /* ARXIV RO'YXATI */
+        .archive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .archive-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(34, 211, 238, 0.1);
+            border-radius: 15px;
+            display: flex;
+            overflow: hidden;
+            transition: 0.3s;
+            position: relative;
+        }
+        .archive-item:hover {
+            border-color: #22d3ee;
+            background: rgba(34, 211, 238, 0.05);
+        }
+
+        .archive-img {
+            width: 100px;
+            height: 140px;
+            object-fit: cover;
+        }
+
+        .archive-info {
+            padding: 15px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .archive-info h3 { font-size: 14px; margin-bottom: 5px; color: #fff; }
+        .archive-info p { font-size: 10px; color: #888; margin-bottom: 10px; }
+
+        .btn-remove {
+            background: rgba(255, 68, 68, 0.1);
+            color: #ff4444;
+            border: 1px solid rgba(255, 68, 68, 0.2);
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 9px;
+            cursor: pointer;
+            width: fit-content;
+            transition: 0.3s;
+        }
+        .btn-remove:hover {
+            background: #ff4444;
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 100px 0;
+            color: #555;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo">Magic Manga</a>
+    <div style="font-size: 10px; color: #888;">USER ARCHIVE</div>
+</header>
+
+<div class="container">
+    <a href="index.html" class="back-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Bosh sahifaga qaytish
+    </a>
+
+    <div class="archive-header">
+        <h1>Mening Arxivim</h1>
+        <span style="font-size: 12px; color: #22d3ee;"><span id="archive-count">2</span> asar</span>
+    </div>
+
+    <div class="archive-grid" id="archiveGrid">
+        <div class="archive-item">
+            <img src="images/Solo leveling.jpg" class="archive-img">
+            <div class="archive-info">
+                <div>
+                    <h3>Solo Leveling</h3>
+                    <p>Janr: Action, Fantasy</p>
+                    <p style="color: #22d3ee;">O'qilgan: 45/179 bob</p>
+                </div>
+                <button class="btn-remove" onclick="removeItem(this)">O'chirish</button>
+            </div>
+        </div>
+
+        <div class="archive-item">
+            <img src="images/Wind.png" class="archive-img">
+            <div class="archive-info">
+                <div>
+                    <h3>Wind Breaker</h3>
+                    <p>Janr: Sports, Drama</p>
+                    <p style="color: #22d3ee;">O'qilgan: 120/450 bob</p>
+                </div>
+                <button class="btn-remove" onclick="removeItem(this)">O'chirish</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="empty-state" id="emptyState">
+        <p>Arxivingiz bo'sh. Qiziqarli asarlarni saqlab qo'ying!</p>
+    </div>
+</div>
+
+<script>
+    function removeItem(btn) {
+        if(confirm("Ushbu asarni arxivdan o'chirmoqchimisiz?")) {
+            btn.closest('.archive-item').remove();
+            updateCount();
+        }
+    }
+
+    function updateCount() {
+        let count = document.querySelectorAll('.archive-item').length;
+        document.getElementById('archive-count').innerText = count;
+        if(count === 0) {
+            document.getElementById('emptyState').style.display = 'block';
+        }
+    }
+</script>
+
+</body>
+</html>

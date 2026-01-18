@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Manga | Abadiy Qudrat</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Orbitron', sans-serif; }
+        body {
+            background: #020308; color: white; min-height: 100vh;
+            background-image: linear-gradient(135deg, #300b0b 0%, #020308 100%);
+            background-attachment: fixed;
+        }
+        header {
+            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px);
+            background: rgba(5, 10, 20, 0.85); display: flex; align-items: center;
+            justify-content: space-between; padding: 15px 40px; border-bottom: 1px solid rgba(239, 68, 68, 0.2);
+        }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; color: #ef4444; text-decoration: none; }
+        .container { max-width: 1000px; margin: 30px auto; padding: 20px; }
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 8px; color: #ef4444;
+            text-decoration: none; font-size: 11px; padding: 8px 15px;
+            background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 8px; margin-bottom: 20px; transition: 0.3s;
+        }
+        .manga-details { 
+            display: grid; grid-template-columns: 320px 1fr; gap: 40px; 
+            background: rgba(255,255,255,0.02); padding: 30px; 
+            border-radius: 25px; border: 1px solid rgba(239, 68, 68, 0.15);
+            backdrop-filter: blur(5px);
+        }
+        .poster-img { width: 100%; height: 450px; object-fit: cover; border-radius: 15px; border: 2px solid #ef4444; box-shadow: 0 0 30px rgba(239, 68, 68, 0.2); }
+        .info-side h1 { font-size: 26px; color: #ef4444; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .archive-icon { cursor: pointer; transition: 0.3s; color: rgba(255,255,255,0.2); }
+        .archive-icon.active { color: #ef4444; filter: drop-shadow(0 0 5px #ef4444); }
+        .genres span { background: rgba(239, 68, 68, 0.05); border: 1px solid rgba(239, 68, 68, 0.3); padding: 6px 15px; border-radius: 20px; font-size: 10px; color: #ef4444; font-weight: 600; }
+        .btn { padding: 14px 25px; border-radius: 12px; border: none; cursor: pointer; font-weight: bold; font-size: 12px; text-decoration: none; display: flex; align-items: center; gap: 10px; transition: 0.3s; }
+        .btn-download { background: #ef4444; color: #fff; }
+        .chapter-box { margin-top: 40px; background: rgba(255,255,255,0.03); padding: 25px; border-radius: 20px; border: 1px solid rgba(239, 68, 68, 0.1); }
+        select { width: 100%; background: #0a1025; color: white; border: 1px solid rgba(239, 68, 68, 0.4); padding: 15px; border-radius: 12px; }
+    </style>
+</head>
+<body>
+<header><a href="../index.html" class="logo">Magic Manga</a></header>
+<div class="container">
+    <a href="../index.html" class="back-btn">← Bosh sahifa</a>
+    <div class="manga-details">
+        <div class="poster-side">
+            <img src="../Images/Abadiy.jpg" class="poster-img" alt="Abadiy Qudrat">
+        </div>
+        <div class="info-side">
+            <h1>Abadiy Qudrat <span class="archive-icon" id="archiveBtn" onclick="toggleArchive()"><svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg></span></h1>
+            <div class="genres" style="display:flex; gap:10px; margin-bottom:25px;"><span>MURIM</span><span>ACTION</span><span>MARTIAL ARTS</span></div>
+            <div style="margin-bottom:25px; font-size:13px; color:#ccc;"><b>Turi:</b> Manhwa | <b>Tarjimon:</b> Alone Kai | <b>Holati:</b> Davom etmoqda</div>
+            <p style="font-size: 12px; color: #888; line-height: 1.8; border-left: 2px solid #ef4444; padding-left: 15px;">Dunyodagi eng buyuk jang san'ati ustasining qayta tug'ilishi va uning abadiy qudrat sari yo'li...</p>
+            <div style="display:flex; gap:15px; margin-top:20px;">
+                <a href="#" class="btn btn-download">Yuklab olish</a>
+                <button class="btn" onclick="alert('Tez kunda!')" style="background:rgba(255,255,255,0.1); color:white;">Donat</button>
+            </div>
+        </div>
+    </div>
+    <div class="chapter-box">
+        <h3 style="color:#ef4444; margin-bottom:15px;">Bobni tanlang</h3>
+        <select onchange="window.location.href='../reader.html?manga=abadiy&ch='+this.value">
+            <option value="" disabled selected>Ro'yxatni oching...</option>
+            <option value="1">1-bob</option><option value="2">2-bob</option>
+        </select>
+    </div>
+</div>
+<script>
+    function toggleArchive() { document.getElementById('archiveBtn').classList.toggle('active'); alert("Arxivga qo'shildi!"); }
+</script>
+</body>
+</html>

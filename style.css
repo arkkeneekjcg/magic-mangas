@@ -1,0 +1,231 @@
+/* Faqat overlay textlari uchun default font */
+.overlay h3,
+.overlay p {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif !important;
+    margin: 0;
+}
+
+/* Overlay text rasmga tegmasligi uchun padding */
+.overlay {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+/* Hoverda overlay ko‘rinadi */
+.card:hover .overlay {
+    opacity: 1;
+}
+/* --- YANGI QO'SHILGAN QISMLAR --- */
+
+/* Hero Slider (Asura style) */
+.hero-wrapper {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Chapda slider, o'ngda sidebar */
+    gap: 20px;
+    padding: 20px 60px;
+}
+
+.hero-slider {
+    background: linear-gradient(90deg, rgba(34, 211, 238, 0.1) 0%, rgba(5, 10, 20, 0.9) 100%), 
+                url('https://images.alphacoders.com/131/1313725.jpeg'); /* Namuna fon */
+    background-size: cover;
+    background-position: center;
+    border-radius: 15px;
+    height: 350px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    border: 1px solid rgba(34, 211, 238, 0.3);
+}
+
+.hero-info h1 {
+    font-size: 32px;
+    color: #22d3ee;
+    margin-bottom: 10px;
+    text-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+}
+
+.hero-info .genre { color: #facc15; font-size: 14px; margin-bottom: 15px; }
+
+.hero-img img {
+    width: 180px;
+    height: 250px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    border: 2px solid #22d3ee;
+}
+
+/* Sidebar (Popular Today) */
+.sidebar-popular {
+    background: rgba(5, 10, 20, 0.6);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid rgba(34, 211, 238, 0.1);
+}
+
+.sidebar-popular h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    border-left: 4px solid #22d3ee;
+    padding-left: 10px;
+}
+
+.pop-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.pop-item span { font-size: 20px; font-weight: bold; color: #444; }
+.pop-item img { width: 50px; height: 70px; border-radius: 5px; object-fit: cover; }
+.pop-item .details h4 { font-size: 13px; color: #eee; }
+.pop-item .details p { font-size: 11px; color: #22d3ee; }
+
+@media (max-width: 1024px) {
+    .hero-wrapper { grid-template-columns: 1fr; padding: 20px; }
+    .sidebar-popular { display: none; } /* Mobil versiyada sidebarni yashirish */
+}
+/* FOOTER STYLE */
+    footer {
+      margin-top: 50px;
+      padding: 40px 60px;
+      background: linear-gradient(to top, #020308 0%, rgba(11, 18, 48, 0.9) 100%);
+      border-top: 1px solid rgba(34, 211, 238, 0.2);
+      text-align: center;
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-bottom: 30px;
+      text-align: left;
+    }
+
+    .footer-section h4 {
+      color: #22d3ee;
+      font-size: 14px;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .footer-section p {
+      color: #bbb;
+      font-size: 11px;
+      line-height: 1.8;
+      margin-bottom: 5px;
+    }
+
+    .footer-section span {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .social-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #bbb;
+      text-decoration: none;
+      font-size: 12px;
+      transition: 0.3s;
+      padding: 8px 15px;
+      border: 1px solid rgba(34, 211, 238, 0.1);
+      border-radius: 8px;
+      background: rgba(34, 211, 238, 0.02);
+    }
+
+    .social-item:hover {
+      color: #22d3ee;
+      border-color: #22d3ee;
+      box-shadow: 0 0 15px rgba(34, 211, 238, 0.2);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 10px;
+      color: #555;
+      letter-spacing: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .footer-content { grid-template-columns: 1fr; text-align: center; }
+      .social-links { justify-content: center; }
+      footer { padding: 30px 20px; }
+    }
+
+    /* SIDE MENU STYLES */
+    .side-menu {
+      position: fixed; top: 0; right: -300px; /* Boshida ko'rinmaydi */
+      width: 300px; height: 100vh;
+      background: rgba(5, 10, 25, 0.95);
+      backdrop-filter: blur(20px);
+      z-index: 2000;
+      border-left: 1px solid rgba(34, 211, 238, 0.3);
+      transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      padding: 30px;
+      box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+    }
+    .side-menu.active { right: 0; } /* Ochilganda */
+
+    .side-menu-header {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 40px; border-bottom: 1px solid #22d3ee; padding-bottom: 10px;
+    }
+    .side-menu-header span { font-weight: bold; color: #22d3ee; letter-spacing: 2px; }
+    .close-btn { background: none; border: none; color: white; font-size: 30px; cursor: pointer; }
+
+    .side-menu-links { display: flex; flex-direction: column; gap: 20px; }
+    .side-menu-links a {
+      text-decoration: none; color: #bbb; font-size: 14px;
+      display: flex; align-items: center; gap: 12px;
+      transition: 0.3s; padding: 10px; border-radius: 8px;
+    }
+    .side-menu-links a:hover {
+      color: #22d3ee; background: rgba(34, 211, 238, 0.1);
+      padding-left: 20px; /* Surilish effekti */
+    }
+
+    .overlay {
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0, 0, 0, 0.6); display: none; z-index: 1500;
+      backdrop-filter: blur(3px);
+    }
+    .overlay.active { display: block; }
+
+    /* Nomini o'zgartirdik: .overlay -> .menu-overlay */
+.menu-overlay {
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100vw; 
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6); 
+    display: none; 
+    z-index: 1500;
+    backdrop-filter: blur(3px);
+}
+.menu-overlay.active { display: block; }

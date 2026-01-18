@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Shop | Premium & Coins</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Orbitron', sans-serif; }
+        
+        body {
+            background: #020308;
+            background-image: radial-gradient(circle at 50% 50%, #0b1230 0%, #020308 100%);
+            color: white;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+        
+        .header-shop { text-align: center; margin-bottom: 50px; }
+        .header-shop h1 { color: #22d3ee; font-size: 32px; letter-spacing: 3px; margin-bottom: 10px; }
+        .header-shop p { color: #888; font-size: 13px; }
+
+        .section-title {
+            font-size: 18px;
+            color: #22d3ee;
+            border-left: 4px solid #22d3ee;
+            padding-left: 15px;
+            margin: 40px 0 25px;
+            text-transform: uppercase;
+        }
+
+        /* GRID SYSTEM */
+        .shop-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        /* CARD STYLES */
+        .shop-card {
+            background: rgba(34, 211, 238, 0.03);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            transition: 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shop-card:hover {
+            transform: translateY(-10px);
+            border-color: #22d3ee;
+            background: rgba(34, 211, 238, 0.07);
+            box-shadow: 0 0 30px rgba(34, 211, 238, 0.2);
+        }
+
+        .card-popular { border-color: #ffd700 !important; }
+        .popular-tag {
+            position: absolute; top: 10px; right: -30px;
+            background: #ffd700; color: #000;
+            padding: 5px 40px; font-size: 10px; font-weight: bold;
+            transform: rotate(45deg);
+        }
+
+        .card-time { font-size: 14px; color: #888; margin-bottom: 10px; }
+        .card-price { font-size: 24px; font-weight: bold; color: #fff; margin-bottom: 20px; }
+        .card-price span { font-size: 12px; color: #22d3ee; }
+
+        .btn-buy {
+            width: 100%;
+            padding: 12px;
+            background: transparent;
+            border: 1px solid #22d3ee;
+            color: #22d3ee;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-buy:hover {
+            background: #22d3ee;
+            color: #000;
+        }
+
+        .coin-icon { width: 40px; margin-bottom: 15px; }
+
+        /* BACK BUTTON */
+        .back-link {
+            display: inline-block;
+            text-decoration: none;
+            color: #555;
+            font-size: 12px;
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+        .back-link:hover { color: #22d3ee; }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <a href="index.html" class="back-link">← Asosiy sahifaga qaytish</a>
+
+    <div class="header-shop">
+        <h1>MAGIC SHOP</h1>
+        <p>Premium obuna bo'ling va cheksiz manhwalar olamiga kiring</p>
+    </div>
+
+    <h2 class="section-title">Premium Tariflar</h2>
+    <div class="shop-grid">
+        <div class="shop-card">
+            <div class="card-time">1 Oylik Premium</div>
+            <div class="card-price">1 000 <span>COIN</span></div>
+            <button class="btn-buy" onclick="buyPremium('1 oy')">FAOLASHTIRISH</button>
+        </div>
+
+        <div class="shop-card card-popular">
+            <div class="popular-tag">TEJAMKOR</div>
+            <div class="card-time">3 Oylik Premium</div>
+            <div class="card-price">2 900 <span>COIN</span></div>
+            <button class="btn-buy" style="background: #ffd700; color: #000; border: none;" onclick="buyPremium('3 oy')">FAOLASHTIRISH</button>
+        </div>
+
+        <div class="shop-card">
+            <div class="card-time">6 Oylik Premium</div>
+            <div class="card-price">5 990 <span>COIN</span></div>
+            <button class="btn-buy" onclick="buyPremium('6 oy')">FAOLASHTIRISH</button>
+        </div>
+
+        <div class="shop-card">
+            <div class="card-time">1 Yillik Premium</div>
+            <div class="card-price">10 000 <span>COIN</span></div>
+            <button class="btn-buy" onclick="buyPremium('1 yil')">FAOLASHTIRISH</button>
+        </div>
+    </div>
+
+    <h2 class="section-title">Coin Sotib Olish</h2>
+    <div class="shop-grid">
+        <div class="shop-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/1490/1490817.png" class="coin-icon">
+            <div class="card-time">Yengil paket</div>
+            <div class="card-price">100 <span>COINS</span></div>
+            <div style="color: #22d3ee; font-size: 14px; margin-bottom: 15px;">1 000 SO'M</div>
+            <button class="btn-buy" onclick="payWithPayme(1000)">SOTIB OLISH</button>
+        </div>
+
+        <div class="shop-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/1490/1490817.png" class="coin-icon">
+            <div class="card-time">Standart paket</div>
+            <div class="card-price">1 000 <span>COINS</span></div>
+            <div style="color: #22d3ee; font-size: 14px; margin-bottom: 15px;">10 000 SO'M</div>
+            <button class="btn-buy" onclick="payWithPayme(10000)">SOTIB OLISH</button>
+        </div>
+
+        <div class="shop-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/1490/1490817.png" class="coin-icon">
+            <div class="card-time">Katta paket</div>
+            <div class="card-price">2 000 <span>COINS</span></div>
+            <div style="color: #22d3ee; font-size: 14px; margin-bottom: 15px;">19 000 SO'M</div>
+            <button class="btn-buy" onclick="payWithPayme(19000)">SOTIB OLISH</button>
+        </div>
+
+        <div class="shop-card">
+            <img src="https://cdn-icons-png.flaticon.com/512/1490/1490817.png" class="coin-icon">
+            <div class="card-time">Mega paket</div>
+            <div class="card-price">5 000 <span>COINS</span></div>
+            <div style="color: #22d3ee; font-size: 14px; margin-bottom: 15px;">45 000 SO'M</div>
+            <button class="btn-buy" onclick="payWithPayme(45000)">SOTIB OLISH</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function buyPremium(duration) {
+        let confirmBuy = confirm(duration + "lik Premium obunani faollashtirishni xohlaysizmi?");
+        if(confirmBuy) {
+            alert("Sizda yetarli Coin mavjud emas!");
+        }
+    }
+
+    function payWithPayme(amount) {
+        alert(amount + " so'm to'lov uchun Click yoki Payme tizimiga yo'naltirilmoqda...");
+        // Bu yerda to'lov tizimi linki bo'ladi
+    }
+</script>
+
+</body>
+</html>

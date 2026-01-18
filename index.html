@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Magic Manga | Premium</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Orbitron', sans-serif; }
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #020308 0%, #050b18 30%, #0b1230 70%, #020308 100%);
+            background-attachment: fixed; color: #ffffff; overflow-x: hidden;
+            display: flex; flex-direction: column;
+        }
+
+        /* HEADER */
+        header {
+            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px);
+            background: rgba(5, 10, 20, 0.85); display: flex; align-items: center;
+            justify-content: space-between; padding: 10px 40px; border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+        }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; color: #22d3ee; text-decoration: none; }
+        .logo img { width: 30px; }
+
+        .header-right { display: flex; align-items: center; gap: 20px; }
+        
+        .nav-links { display: flex; align-items: center; gap: 5px; }
+        .nav-links a { 
+            text-decoration: none; color: #bbb; font-size: 11px; display: flex; align-items: center; gap: 6px;
+            transition: 0.3s; padding: 8px 12px; border-radius: 8px; cursor: pointer;
+        }
+        .nav-links a:hover { color: #22d3ee; background: rgba(34, 211, 238, 0.1); }
+        .nav-icon { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+        /* SEARCH PANELI */
+        .search-box {
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(34, 211, 238, 0.3);
+            border-radius: 20px; padding: 5px 15px; display: flex; align-items: center; gap: 8px;
+        }
+        .search-box input { background: none; border: none; color: white; outline: none; font-size: 11px; width: 120px; }
+        .search-icon { width: 14px; height: 14px; fill: none; stroke: #22d3ee; stroke-width: 2; }
+
+        /* HERO SLIDER */
+        .section { padding: 30px 60px; flex: 1; }
+        .hero-wrapper { display: grid; grid-template-columns: 2.6fr 1fr; gap: 25px; margin-bottom: 40px; }
+        .carousel-container { position: relative; height: 380px; overflow: hidden; border-radius: 20px; border: 1px solid rgba(34, 211, 238, 0.2); }
+        .carousel-track { display: flex; transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1); height: 100%; }
+        
+        .hero-slide {
+            min-width: 100%; display: flex; justify-content: space-between; align-items: center;
+            padding: 50px; position: relative; z-index: 1; background-size: cover; background-position: center;
+            text-decoration: none;
+        }
+        .hero-slide::before { 
+            content: ""; position: absolute; inset: 0; 
+            background: linear-gradient(90deg, rgba(0,0,0,0.95) 40%, rgba(0,0,0,0.6)); z-index: -1; 
+        }
+        .hero-info h1 { font-size: 32px; color: #22d3ee; margin-bottom: 12px; }
+        .hero-desc { font-size: 12px; color: #ccc; max-width: 400px; line-height: 1.6; margin-bottom: 20px; }
+        .hero-meta { display: flex; gap: 10px; font-size: 11px; margin-bottom: 15px; }
+        .hero-meta span { border: 1px solid #22d3ee; padding: 4px 12px; border-radius: 6px; color: #22d3ee; }
+        .hero-img img { width: 160px; height: 230px; border-radius: 12px; border: 2px solid #22d3ee; object-fit: cover; box-shadow: 0 0 25px rgba(34, 211, 238, 0.4); }
+
+        /* SIDEBAR POPULAR */
+        .sidebar-popular { background: rgba(10, 15, 30, 0.6); border-radius: 20px; padding: 20px; border: 1px solid rgba(34, 211, 238, 0.1); }
+        .sidebar-popular h3 { font-size: 14px; margin-bottom: 20px; color: #22d3ee; border-left: 4px solid #22d3ee; padding-left: 10px; }
+        .pop-item { display: flex; align-items: center; gap: 12px; margin-bottom: 15px; text-decoration: none; color: inherit; transition: 0.3s; }
+        .pop-item:hover { transform: translateX(5px); }
+        .rank-num { font-size: 16px; font-weight: bold; min-width: 25px; color: #444; }
+        .pop-item img { width: 40px; height: 55px; border-radius: 5px; object-fit: cover; }
+        .pop-item h4 { font-size: 11px; color: #eee; }
+
+        /* MANGA CARDS */
+        .cards-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+        .manga-card-small {
+            background: rgba(34, 211, 238, 0.04); border: 1px solid rgba(34, 211, 238, 0.15);
+            border-radius: 15px; padding: 15px; display: flex; gap: 15px; transition: 0.3s; text-decoration: none; color: inherit;
+        }
+        .manga-card-small:hover { border-color: #22d3ee; background: rgba(34, 211, 238, 0.08); transform: translateY(-5px); }
+        .manga-card-small img { width: 90px; height: 130px; border-radius: 8px; object-fit: cover; }
+        .card-info { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .card-info h2 { font-size: 13px; color: #fff; letter-spacing: 0.5px; }
+        .card-meta { font-size: 10px; color: #888; }
+        .card-meta span { color: #22d3ee; font-weight: bold; }
+        .card-tags { display: flex; gap: 6px; }
+        .card-tags b { font-size: 9px; background: rgba(34, 211, 238, 0.15); padding: 2px 8px; border-radius: 4px; color: #22d3ee; font-weight: 500; }
+
+        /* PROFILE MODAL */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
+            display: none; align-items: center; justify-content: center; z-index: 3000;
+        }
+        .profile-card {
+            width: 340px; background: #0b1230; border: 1px solid #22d3ee;
+            border-radius: 25px; padding: 30px; position: relative; text-align: center;
+        }
+        .close-modal { position: absolute; top: 15px; right: 20px; background: none; border: none; color: #777; font-size: 20px; cursor: pointer; transition: 0.3s; }
+        .close-modal:hover { color: #ff4d4d; }
+        
+        .profile-avatar {
+            width: 90px; height: 90px; border-radius: 50%; border: 2px solid #22d3ee;
+            margin: 0 auto 15px; position: relative; overflow: hidden; background: #050b18;
+        }
+        .profile-avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .profile-avatar input { position: absolute; inset: 0; opacity: 0; cursor: pointer; display: none; }
+        
+        #nickInput {
+            background: none; border: 1px solid transparent; color: white;
+            text-align: center; padding: 8px; width: 100%; font-size: 16px; outline: none;
+        }
+        #nickInput.editing { background: rgba(255,255,255,0.05); border-color: rgba(34, 211, 238, 0.3); border-radius: 10px; }
+
+        .balance-box {
+            background: rgba(34, 211, 238, 0.1); padding: 12px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: space-between; margin: 15px 0;
+        }
+        .btn-shop { text-decoration: none; color: #000; background: #22d3ee; padding: 5px 15px; border-radius: 8px; font-size: 10px; font-weight: bold; transition: 0.3s; }
+        .btn-shop:hover { box-shadow: 0 0 10px #22d3ee; }
+
+        .social-btn {
+            display: flex; align-items: center; justify-content: center; gap: 10px;
+            padding: 10px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);
+            font-size: 11px; margin-bottom: 10px; color: #ccc; cursor: pointer; text-decoration: none; transition: 0.3s;
+        }
+        .social-btn:hover { background: rgba(255,255,255,0.05); border-color: #22d3ee; color: #fff; }
+        .social-btn img { width: 16px; height: 16px; filter: drop-shadow(0 0 2px rgba(34, 211, 238, 0.5)); }
+
+        .btn-edit, .btn-save { width: 100%; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; border: none; font-family: 'Orbitron'; }
+        .btn-edit { background: rgba(255,255,255,0.1); color: white; }
+        .btn-save { background: #22d3ee; color: #000; display: none; }
+
+        /* SIDE MENU */
+        .side-menu { position: fixed; top: 0; right: -300px; width: 280px; height: 100vh; background: #050b14; z-index: 2500; transition: 0.4s; padding: 30px; border-left: 1px solid #22d3ee; }
+        .side-menu.active { right: 0; }
+        .side-menu-links a { text-decoration: none; color: #bbb; font-size: 13px; display: flex; align-items: center; gap: 12px; padding: 12px 0; transition: 0.3s; }
+        .side-menu-links a:hover { color: #22d3ee; }
+        .overlay-bg { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; z-index: 2400; }
+
+        /* FOOTER */
+        footer {
+            background: rgba(5, 10, 20, 0.95); padding: 40px 60px; border-top: 1px solid rgba(34, 211, 238, 0.2);
+            margin-top: 50px;
+        }
+        .footer-content { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; }
+        .footer-logo { font-size: 20px; font-weight: bold; color: #22d3ee; margin-bottom: 15px; display: block; text-decoration: none; }
+        .footer-text { font-size: 11px; color: #888; line-height: 1.8; margin-bottom: 20px; }
+        .footer-socials { display: flex; gap: 15px; }
+        .footer-socials a { transition: 0.3s; display: flex; align-items: center; justify-content: center; }
+        .footer-socials a:hover { transform: scale(1.2); filter: drop-shadow(0 0 5px #22d3ee); }
+        .footer-socials img { width: 24px; height: 24px; }
+        
+        .footer-team h4 { font-size: 13px; color: #22d3ee; margin-bottom: 15px; border-bottom: 1px solid rgba(34,211,238,0.2); padding-bottom: 5px; width: fit-content; }
+        .team-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 10px; color: #bbb; }
+        .team-item b { color: #22d3ee; display: block; margin-bottom: 2px; }
+
+        .footer-bottom { text-align: center; padding-top: 30px; margin-top: 30px; border-top: 1px solid rgba(255,255,255,0.05); font-size: 10px; color: #555; }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo"><img src="images/logo.png"> Magic Manga</a>
+    
+    <div class="header-right">
+        <nav class="nav-links">
+            <a href="index.html"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Bosh sahifa</a>
+            <a href="Popular.html"><svg class="nav-icon" viewBox="0 0 24 24"><polygon points="12 2 15 8 22 9 17 14 18 21 12 17 6 21 7 14 2 9 9 8 12 2"/></svg> Mashhur</a>
+            <a href="Katalog.html"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Katalog</a>
+        </nav>
+
+        <div class="search-box">
+            <svg class="search-icon" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" placeholder="Qidiruv...">
+        </div>
+
+        <div class="nav-links">
+            <a onclick="toggleProfile()"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Hisob</a>
+            <a onclick="toggleMenu()"><svg class="nav-icon" viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></a>
+        </div>
+    </div>
+</header>
+
+<section class="section">
+    <div class="hero-wrapper">
+        <div class="carousel-container">
+            <div class="carousel-track" id="track">
+                <a href="#" class="hero-slide" style="background-image: url('images/Solo leveling.jpg');">
+                    <div class="hero-info">
+                        <div class="hero-meta"><span>MANHWA</span><span>⭐ 9.9</span></div>
+                        <h1>Solo Leveling</h1>
+                        <p class="hero-desc">Eng kuchsiz ovchidan eng kuchli darajaga ko'tarilish hikoyasi...</p>
+                    </div>
+                    <div class="hero-img"><img src="images/Solo leveling.jpg"></div>
+                </a>
+                <a href="#" class="hero-slide" style="background-image: url('images/Abadiy.jpg');">
+                    <div class="hero-info">
+                        <div class="hero-meta"><span>MANHWA</span><span>⭐ 9.6</span></div>
+                        <h1>Abadiy Izolyatsiya</h1>
+                        <p class="hero-desc">Zombi epidemiyasi davrida uyda qamalib qolgan yigit hikoyasi.</p>
+                    </div>
+                    <div class="hero-img"><img src="images/Abadiy.jpg"></div>
+                </a>
+                <a href="#" class="hero-slide" style="background-image: url('images/Xojning burchagi.jpg');">
+                    <div class="hero-info">
+                        <div class="hero-meta"><span>MANHWA</span><span>⭐ 9.8</span></div>
+                        <h1>Xojning burchagi</h1>
+                        <p class="hero-desc">Qadimiy jang san'atlari va shafqatsiz qasos yo'li.</p>
+                    </div>
+                    <div class="hero-img"><img src="images/Xojning burchagi.jpg"></div>
+                </a>
+                <a href="#" class="hero-slide" style="background-image: url('images/Villain.jpg');">
+                    <div class="hero-info">
+                        <div class="hero-meta"><span>MANHWA</span><span>⭐ 9.7</span></div>
+                        <h1>Yovuzning Irodasi</h1>
+                        <p class="hero-desc">Yovuz qahramon bo'lish qanchalik qiyin?</p>
+                    </div>
+                    <div class="hero-img"><img src="images/Villain.jpg"></div>
+                </a>
+                <a href="#" class="hero-slide" style="background-image: url('images/Wind.png');">
+                    <div class="hero-info">
+                        <div class="hero-meta"><span>MANHWA</span><span>⭐ 9.8</span></div>
+                        <h1>Wind Breaker</h1>
+                        <p class="hero-desc">Velosiped poygalari va ko'cha madaniyati haqida eng yaxshi asar.</p>
+                    </div>
+                    <div class="hero-img"><img src="images/Wind.png"></div>
+                </a>
+            </div>
+        </div>
+
+        <div class="sidebar-popular">
+            <h3>Bugun Mashhur</h3>
+            <a href="#" class="pop-item"><span class="rank-num">1</span><img src="images/Solo leveling.jpg"><h4>Solo Leveling</h4></a>
+            <a href="#" class="pop-item"><span class="rank-num">2</span><img src="images/Xojning burchagi.jpg"><h4>Xojning burchagi</h4></a>
+            <a href="#" class="pop-item"><span class="rank-num">3</span><img src="images/Abadiy.jpg"><h4>Abadiy Izolyatsiya</h4></a>
+            <a href="#" class="pop-item"><span class="rank-num">4</span><img src="images/Villain.jpg"><h4>Yovuzning Irodasi</h4></a>
+            <a href="#" class="pop-item"><span class="rank-num">5</span><img src="images/Cheksiz.jpg"><h4>Cheksiz Nekro</h4></a>
+        </div>
+    </div>
+
+    <div class="cards-container">
+        <a href="#" class="manga-card-small"><img src="images/Solo leveling.jpg"><div class="card-info"><h2>SOLO LEVELING</h2><div class="card-meta">Boblar: <span>179</span> | ⭐ 9.9</div><div class="card-tags"><b>Action</b><b>Fantasy</b></div></div></a>
+        <a href="#" class="manga-card-small"><img src="images/Xojning burchagi.jpg"><div class="card-info"><h2>XOJNING BURCHAGI</h2><div class="card-meta">Boblar: <span>54</span> | ⭐ 9.8</div><div class="card-tags"><b>Martial Arts</b></div></div></a>
+        <a href="#" class="manga-card-small"><img src="images/Abadiy.jpg"><div class="card-info"><h2>ABADIY IZOLYATSIYA</h2><div class="card-meta">Boblar: <span>82</span> | ⭐ 9.6</div><div class="card-tags"><b>Horror</b></div></div></a>
+        <a href="#" class="manga-card-small"><img src="images/Villain.jpg"><div class="card-info"><h2>YOVUZNING IRODASI</h2><div class="card-meta">Boblar: <span>45</span> | ⭐ 9.7</div><div class="card-tags"><b>Isekai</b></div></div></a>
+        <a href="#" class="manga-card-small"><img src="images/Cheksiz.jpg"><div class="card-info"><h2>CHEKSIZ NEKRO</h2><div class="card-meta">Boblar: <span>38</span> | ⭐ 9.5</div><div class="card-tags"><b>System</b></div></div></a>
+        <a href="#" class="manga-card-small"><img src="images/Wind.png"><div class="card-info"><h2>WIND BREAKER</h2><div class="card-meta">Boblar: <span>450</span> | ⭐ 9.8</div><div class="card-tags"><b>Sports</b></div></div></a>
+    </div>
+</section>
+
+<div class="modal-overlay" id="profileModal" onclick="closeModals(event)">
+    <div class="profile-card">
+        <button class="close-modal" onclick="toggleProfile()">✕</button>
+        <div class="profile-avatar">
+            <img src="images/default-avatar.png" id="avatarPreview">
+            <input type="file" id="fileInput" onchange="previewImage(event)">
+        </div>
+        <input type="text" id="nickInput" value="Arkenyo_01" readonly>
+        <p style="font-size: 10px; color: #555; margin-bottom: 10px;">Manga Reader | Level 12</p>
+        
+        <div class="balance-box">
+            <span style="font-size: 14px; color: #22d3ee; font-weight: bold;">100 COINS</span>
+            <a href="shop.html" class="btn-shop">Do'kon</a>
+        </div>
+
+        <a href="https://t.me/MagicManga" class="social-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg"> Telegram Ulash
+        </a>
+        <a href="#" class="social-btn">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"> Google Ulash
+        </a>
+
+        <button class="btn-edit" id="editBtn" onclick="enableEdit()">Edit Profile</button>
+        <button class="btn-save" id="saveBtn" onclick="saveChanges()">Save Changes</button>
+    </div>
+</div>
+
+<div class="side-menu" id="sideMenu">
+    <div style="display: flex; justify-content: space-between; margin-bottom: 30px;">
+        <span style="font-size: 12px; color: #22d3ee;">MENYU</span>
+        <button onclick="toggleMenu()" style="background:none; border:none; color:white; cursor:pointer;">✕</button>
+    </div>
+    <div class="side-menu-links">
+        <a href="index.html"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg> Bosh sahifa</a>
+        <a href="arxiv.html"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg> Tanlanganlar</a>
+        <a onclick="toggleProfile()"><svg class="nav-icon" viewBox="0 0 24 24"><circle cx="12" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/></svg> Hisob</a>
+        <a href="Katalog.html"><svg class="nav-icon" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Katalog</a>
+    </div>
+</div>
+<div class="overlay-bg" id="overlayBg" onclick="toggleMenu()"></div>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-info">
+            <a href="index.html" class="footer-logo">Magic Manga</a>
+            <p class="footer-text">O'zbekistondagi eng sifatli manga va manhwa portali. Biz bilan sevimli asarlaringizni yuqori sifatda o'qing.</p>
+            <div class="footer-socials">
+                <a href="https://t.me/MagicManga"><img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="TG"></a>
+                <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Instagram_logo_2016.svg" alt="IG"></a>
+                <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WA"></a>
+            </div>
+        </div>
+
+        <div class="footer-team">
+            <h4>Jamoa</h4>
+            <div class="team-grid">
+                <div class="team-item"><b>Asoschi:</b> Emperor</div>
+                <div class="team-item"><b>Manager:</b> Falcon</div>
+                <div class="team-item"><b>Dasturchi:</b> Arkenyo</div>
+                <div class="team-item"><b>Dizayner:</b> Galarx</div>
+            </div>
+        </div>
+
+        <div class="footer-team">
+            <h4>Yordam</h4>
+            <div class="team-grid">
+                <div class="team-item">Reklama</div>
+                <div class="team-item">Qoidalar</div>
+                <div class="team-item">Aloqa</div>
+                <div class="team-item">Donat</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2024 Magic Manga. Barcha huquqlar himoyalangan. | Vizual dizayn: Galarx
+    </div>
+</footer>
+
+<script>
+    const track = document.getElementById('track');
+    let idx = 0;
+    setInterval(() => { idx = (idx + 1) % 5; track.style.transform = `translateX(-${idx * 100}%)`; }, 5000);
+
+    function toggleMenu() {
+        const m = document.getElementById('sideMenu'), b = document.getElementById('overlayBg');
+        m.classList.toggle('active'); b.style.display = m.classList.contains('active') ? 'block' : 'none';
+    }
+
+    function toggleProfile() {
+        const p = document.getElementById('profileModal');
+        p.style.display = (p.style.display === 'flex') ? 'none' : 'flex';
+        if (p.style.display === 'none') resetEdit();
+    }
+
+    function closeModals(e) { if(e.target.id === 'profileModal') toggleProfile(); }
+
+    function enableEdit() {
+        document.getElementById('nickInput').readOnly = false;
+        document.getElementById('nickInput').classList.add('editing');
+        document.getElementById('fileInput').style.display = 'block';
+        document.getElementById('editBtn').style.display = 'none';
+        document.getElementById('saveBtn').style.display = 'block';
+    }
+
+    function saveChanges() {
+        alert("O'zgarishlar saqlandi!");
+        resetEdit();
+    }
+
+    function resetEdit() {
+        document.getElementById('nickInput').readOnly = true;
+        document.getElementById('nickInput').classList.remove('editing');
+        document.getElementById('fileInput').style.display = 'none';
+        document.getElementById('editBtn').style.display = 'block';
+        document.getElementById('saveBtn').style.display = 'none';
+    }
+
+    function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function() { document.getElementById('avatarPreview').src = reader.result; }
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+// Qidiruv funksiyasi
+const searchInput = document.querySelector('.search-box input');
+
+searchInput.addEventListener('keyup', function() {
+    const filter = searchInput.value.toLowerCase(); // Kichik harflarga o'girish
+    const cards = document.querySelectorAll('.manga-card-small'); // Barcha kartalarni olish
+
+    cards.forEach(card => {
+        // Karta ichidagi h2 (nomi) ni tekshirish
+        const title = card.querySelector('h2').innerText.toLowerCase();
+        
+        if (title.includes(filter)) {
+            card.style.display = "flex"; // Agar mos kelsa ko'rsatish
+        } else {
+            card.style.display = "none"; // Mos kelmasa yashirish
+        }
+    });
+});
+
+</script>
+
+</body>
+</html>

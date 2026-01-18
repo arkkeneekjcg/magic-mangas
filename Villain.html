@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Manga | Yovuzning omon qolish irodasi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Orbitron', sans-serif; }
+        body {
+            background: #020308; color: white; min-height: 100vh;
+            background-image: linear-gradient(135deg, #1a0b30 0%, #020308 100%);
+            background-attachment: fixed;
+        }
+
+        header {
+            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px);
+            background: rgba(5, 10, 20, 0.85); display: flex; align-items: center;
+            justify-content: space-between; padding: 15px 40px; border-bottom: 1px solid rgba(168, 85, 247, 0.2);
+        }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; color: #a855f7; text-decoration: none; }
+
+        .container { max-width: 1000px; margin: 30px auto; padding: 20px; }
+
+        .back-btn {
+            display: inline-flex; align-items: center; gap: 8px; color: #a855f7;
+            text-decoration: none; font-size: 11px; padding: 8px 15px;
+            background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.2);
+            border-radius: 8px; margin-bottom: 20px; transition: 0.3s;
+        }
+        .back-btn:hover { background: rgba(168, 85, 247, 0.1); }
+
+        .manga-details { 
+            display: grid; grid-template-columns: 320px 1fr; gap: 40px; 
+            background: rgba(255,255,255,0.02); padding: 30px; 
+            border-radius: 25px; border: 1px solid rgba(168, 85, 247, 0.15);
+            backdrop-filter: blur(5px);
+        }
+        
+        .poster-side { position: relative; width: 100%; }
+        .poster-img { 
+            width: 100%; height: 450px; object-fit: cover; 
+            border-radius: 15px; border: 2px solid #a855f7; 
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.2); 
+        }
+
+        /* Tekin bo'lgani uchun Premium badge olib tashlandi */
+
+        .info-side h1 { font-size: 24px; color: #a855f7; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; }
+        .archive-icon { cursor: pointer; transition: 0.3s; color: rgba(255,255,255,0.2); }
+        .archive-icon.active { color: #a855f7; filter: drop-shadow(0 0 5px #a855f7); }
+
+        .meta-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 25px; font-size: 13px; }
+        .meta-item { color: #ccc; }
+        .meta-item b { color: #a855f7; margin-right: 5px; }
+
+        .genres { display: flex; gap: 10px; margin-bottom: 25px; }
+        .genres span { 
+            background: rgba(168, 85, 247, 0.05); border: 1px solid rgba(168, 85, 247, 0.3); 
+            padding: 6px 15px; border-radius: 20px; font-size: 10px; color: #a855f7; font-weight: 600;
+        }
+
+        .action-btns { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 30px; }
+        .btn { 
+            padding: 14px 25px; border-radius: 12px; border: none; cursor: pointer; 
+            font-weight: bold; font-size: 12px; text-decoration: none; 
+            display: flex; align-items: center; gap: 10px; transition: 0.3s; font-family: 'Orbitron';
+        }
+        .btn-download { background: #a855f7; color: #fff; box-shadow: 0 0 15px rgba(168, 85, 247, 0.3); }
+        .btn-donate { background: rgba(255, 68, 68, 0.1); color: #ff4444; border: 1px solid #ff4444; }
+
+        .chapter-box { 
+            margin-top: 40px; background: rgba(255,255,255,0.03); 
+            padding: 25px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); 
+        }
+        .chapter-box h3 { font-size: 15px; color: #a855f7; margin-bottom: 15px; }
+        select { 
+            width: 100%; background: #0a1025; color: white; border: 1px solid rgba(168, 85, 247, 0.4); 
+            padding: 15px; border-radius: 12px; outline: none; cursor: pointer;
+        }
+
+        .rating-box { margin-top: 15px; display: flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.05); padding: 10px; border-radius: 10px; width: fit-content; }
+        .stars { color: #ffd700; cursor: pointer; font-size: 22px; }
+
+        .comments-section { margin-top: 50px; }
+        .comment-input { 
+            width: 100%; background: rgba(255,255,255,0.03); border: 1px solid rgba(168, 85, 247, 0.2); 
+            padding: 18px; border-radius: 15px; color: white; margin-bottom: 15px; outline: none; resize: none;
+        }
+        .comment-btn { 
+            background: #a855f7; color: #fff; padding: 12px 30px; 
+            border: none; border-radius: 10px; font-weight: bold; cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="../index.html" class="logo">Magic Manga</a>
+    <div style="font-size: 10px; color: #a855f7;">FREE CONTENT</div>
+</header>
+
+<div class="container">
+    <a href="../index.html" class="back-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Bosh sahifa
+    </a>
+
+    <div class="manga-details">
+        <div class="poster-side">
+            <img src="../Images/Villain.jpg" class="poster-img" alt="Yovuzning omon qolish irodasi">
+            
+            <div class="rating-box">
+                <span class="stars" onclick="rate()">★★★★★</span>
+                <span style="font-size: 11px; color: #888;">9.7/10</span>
+            </div>
+        </div>
+
+        <div class="info-side">
+            <h1>Yovuzning omon qolish irodasi
+                <span class="archive-icon" id="archiveBtn" onclick="toggleArchive()">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                </span>
+            </h1>
+            
+            <div class="genres">
+                <span>ACTION</span><span>DRAMA</span><span>FANTASY</span>
+            </div>
+
+            <div class="meta-grid">
+                <div class="meta-item"><b>Turi:</b> Manhwa</div>
+                <div class="meta-item"><b>Davlati:</b> Janubiy Koreya</div>
+                <div class="meta-item"><b>Tarjimon:</b> Alone Kai</div>
+                <div class="meta-item"><b>Tozalovchi:</b> Alone Kai</div>
+                <div class="meta-item"><b>Yozuvchi:</b> Alone Kai</div>
+                <div class="meta-item"><b>Holati:</b> Davom etmoqda</div>
+            </div>
+
+            <p style="font-size: 12px; color: #888; line-height: 1.8; margin-bottom: 30px; border-left: 2px solid #a855f7; padding-left: 15px;">
+                O'yin ichiga yovuz qahramon sifatida tushib qolgan yigitning omon qolish irodasi haqidagi hikoya. U o'z taqdirini o'zgartira oladimi?
+            </p>
+
+            <div class="action-btns">
+                <a href="#" class="btn btn-download">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    Yuklab olish
+                </a>
+                <button class="btn btn-donate" onclick="showDonate()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l8.84-8.84 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    Donat qilish
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="chapter-box">
+        <h3>Bobni tanlang va o'qing</h3>
+        <select id="chapterSelect" onchange="startReading(this.value)">
+            <option value="" disabled selected>Ro'yxatni oching...</option>
+            <option value="1">1-bob: Yangi dunyo</option>
+            <option value="2">2-bob: Iroda kuchi</option>
+        </select>
+    </div>
+
+    <div class="comments-section">
+        <h3 style="margin-bottom: 20px; font-size: 16px; color: #a855f7;">Fikrlar</h3>
+        <textarea class="comment-input" placeholder="Fikringizni qoldiring..." rows="4"></textarea>
+        <button class="comment-btn">Izoh qoldirish</button>
+    </div>
+</div>
+
+<script>
+    function toggleArchive() {
+        const btn = document.getElementById('archiveBtn');
+        btn.classList.toggle('active');
+        if(btn.classList.contains('active')) alert("Kutubxonaga qo'shildi!");
+    }
+    function rate() { alert("Baholaganingiz uchun rahmat!"); }
+    function showDonate() { alert("Donat qilish uchun Alone Kai jamoasi bilan bog'laning."); }
+    function startReading(chapter) {
+        if(chapter) window.location.href = "../reader.html?manga=villain&ch=" + chapter;
+    }
+</script>
+
+</body>
+</html>

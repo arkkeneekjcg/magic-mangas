@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Manga | Katalog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Orbitron', sans-serif; }
+        
+        body {
+            background: #020308;
+            background-image: radial-gradient(circle at 50% 0%, #0b1230 0%, #020308 100%);
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px);
+            background: rgba(5, 10, 20, 0.85); display: flex; align-items: center;
+            justify-content: space-between; padding: 10px 40px; border-bottom: 1px solid rgba(34, 211, 238, 0.2);
+        }
+        .logo { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 700; color: #22d3ee; text-decoration: none; }
+        .logo img { width: 30px; }
+        .logo:hover { text-shadow: 0 0 10px #22d3ee; }
+
+        /* QAYTISH TUGMASI STILI */
+        .back-container {
+            padding: 20px 60px 0;
+        }
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #22d3ee;
+            text-decoration: none;
+            font-size: 11px;
+            padding: 8px 15px;
+            background: rgba(34, 211, 238, 0.05);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            border-radius: 8px;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .back-btn:hover {
+            background: rgba(34, 211, 238, 0.15);
+            transform: translateX(-5px);
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.1);
+        }
+
+        /* FILTER SECTION */
+        .filter-container {
+            padding: 20px 60px 30px; /* Padding biroz moslashtirildi */
+            background: rgba(34, 211, 238, 0.02);
+            border-bottom: 1px solid rgba(34, 211, 238, 0.1);
+        }
+
+        .filter-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .search-bar {
+            background: #0a0f1e;
+            border: 1px solid rgba(34, 211, 238, 0.3);
+            border-radius: 10px;
+            padding: 10px 20px;
+            width: 300px;
+            color: white;
+            outline: none;
+        }
+
+        .genre-list {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .genre-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(34, 211, 238, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 11px;
+            cursor: pointer;
+            transition: 0.3s;
+            color: #ccc;
+        }
+
+        .genre-tag:hover, .genre-tag.active {
+            background: #22d3ee;
+            color: #000;
+            box-shadow: 0 0 15px rgba(34, 211, 238, 0.3);
+        }
+
+        /* KATALOG GRID (Kichik kartalar) */
+        .katalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 25px;
+            padding: 40px 60px;
+        }
+
+        .mini-card {
+            background: #0a0f1e;
+            border: 1px solid rgba(34, 211, 238, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: 0.3s;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+        }
+
+        .mini-card:hover {
+            transform: translateY(-8px);
+            border-color: #22d3ee;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .poster-wrapper {
+            position: relative;
+            height: 240px;
+            width: 100%;
+        }
+
+        .poster-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .premium-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ffd700;
+            color: #000;
+            font-size: 8px;
+            font-weight: bold;
+            padding: 3px 7px;
+            border-radius: 4px;
+        }
+
+        .card-content {
+            padding: 12px;
+        }
+
+        .card-content h3 {
+            font-size: 11px;
+            margin-bottom: 8px;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .card-info-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            color: #888;
+        }
+
+        .rating { color: #22d3ee; }
+
+        .results-count {
+            padding: 20px 60px 0;
+            font-size: 12px;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="index.html" class="logo"><img src="images/logo.png" alt="logo"> Magic Manga</a>
+    <div style="font-size: 12px; color: #22d3ee;">KATALOG SECTION</div>
+</header>
+
+<div class="back-container">
+    <a href="index.html" class="back-btn">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        Asosiyga qaytish
+    </a>
+</div>
+
+<div class="filter-container">
+    <div class="filter-header">
+        <h1>Barcha loyihalar</h1>
+        <input type="text" class="search-bar" id="katSearch" placeholder="Manhwa qidirish..." onkeyup="filterKatalog()">
+    </div>
+
+    <div class="genre-list">
+        <div class="genre-tag active">Hammasi</div>
+        <div class="genre-tag">Action</div>
+        <div class="genre-tag">Fantasy</div>
+        <div class="genre-tag">Romance</div>
+        <div class="genre-tag">Horror</div>
+        <div class="genre-tag">Martial Arts</div>
+        <div class="genre-tag">Isekai</div>
+        <div class="genre-tag">Shounen</div>
+    </div>
+</div>
+
+<div class="results-count">Jami: <span id="count">6</span> ta asar topildi</div>
+
+<div class="katalog-grid" id="katalogGrid">
+    <a href="#" class="mini-card" data-name="solo leveling" data-genre="action">
+        <div class="poster-wrapper">
+            <span class="premium-badge">PREMIUM</span>
+            <img src="images/Solo leveling.jpg" alt="Solo Leveling">
+        </div>
+        <div class="card-content">
+            <h3>Solo Leveling</h3>
+            <div class="card-info-row">
+                <span>179 Bob</span>
+                <span class="rating">⭐ 9.9</span>
+            </div>
+        </div>
+    </a>
+
+    <a href="#" class="mini-card" data-name="xojning burchagi" data-genre="martial arts">
+        <div class="poster-wrapper">
+            <img src="images/Xojning burchagi.jpg" alt="Xojning burchagi">
+        </div>
+        <div class="card-content">
+            <h3>Xojning burchagi</h3>
+            <div class="card-info-row">
+                <span>54 Bob</span>
+                <span class="rating">⭐ 9.8</span>
+            </div>
+        </div>
+    </a>
+
+    <a href="#" class="mini-card" data-name="abadiy izolyatsiya" data-genre="horror">
+        <div class="poster-wrapper">
+            <img src="images/Abadiy.jpg" alt="Abadiy Izolyatsiya">
+        </div>
+        <div class="card-content">
+            <h3>Abadiy Izolyatsiya</h3>
+            <div class="card-info-row">
+                <span>82 Bob</span>
+                <span class="rating">⭐ 9.6</span>
+            </div>
+        </div>
+    </a>
+
+    <a href="#" class="mini-card" data-name="yovuzning irodasi" data-genre="isekai">
+        <div class="poster-wrapper">
+            <img src="images/Villain.jpg" alt="Yovuzning Irodasi">
+        </div>
+        <div class="card-content">
+            <h3>Yovuzning Irodasi</h3>
+            <div class="card-info-row">
+                <span>45 Bob</span>
+                <span class="rating">⭐ 9.7</span>
+            </div>
+        </div>
+    </a>
+
+    <a href="#" class="mini-card" data-name="cheksiz nekro" data-genre="fantasy">
+        <div class="poster-wrapper">
+            <span class="premium-badge">PREMIUM</span>
+            <img src="images/Cheksiz.jpg" alt="Cheksiz Nekro">
+        </div>
+        <div class="card-content">
+            <h3>Cheksiz Nekro</h3>
+            <div class="card-info-row">
+                <span>38 Bob</span>
+                <span class="rating">⭐ 9.5</span>
+            </div>
+        </div>
+    </a>
+
+    <a href="#" class="mini-card" data-name="wind breaker" data-genre="sports">
+        <div class="poster-wrapper">
+            <img src="images/Wind.png" alt="Wind Breaker">
+        </div>
+        <div class="card-content">
+            <h3>Wind Breaker</h3>
+            <div class="card-info-row">
+                <span>450 Bob</span>
+                <span class="rating">⭐ 9.8</span>
+            </div>
+        </div>
+    </a>
+</div>
+
+<script>
+    function filterKatalog() {
+        let input = document.getElementById('katSearch').value.toLowerCase();
+        let cards = document.getElementsByClassName('mini-card');
+        let count = 0;
+
+        for (let i = 0; i < cards.length; i++) {
+            let name = cards[i].getAttribute('data-name');
+            if (name.includes(input)) {
+                cards[i].style.display = "block";
+                count++;
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+        document.getElementById('count').innerText = count;
+    }
+
+    const tags = document.querySelectorAll('.genre-tag');
+    tags.forEach(tag => {
+        tag.addEventListener('click', () => {
+            tags.forEach(t => t.classList.remove('active'));
+            tag.classList.add('active');
+            
+            let genre = tag.innerText.toLowerCase();
+            let cards = document.getElementsByClassName('mini-card');
+            let count = 0;
+
+            for (let i = 0; i < cards.length; i++) {
+                let cardGenre = cards[i].getAttribute('data-genre');
+                if (genre === "hammasi" || cardGenre === genre) {
+                    cards[i].style.display = "block";
+                    count++;
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+            document.getElementById('count').innerText = count;
+        });
+    });
+</script>
+
+</body>
+</html>
